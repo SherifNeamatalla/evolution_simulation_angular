@@ -1,0 +1,15 @@
+<div class="main_canvas">
+
+  <div class="creature"
+       [ngStyle]="{'top':creature.y+'px','left':creature.x+'px'}"
+       *ngFor="let creature of (simulationVMS.creatures | async)">
+    &nbsp;
+  </div>
+
+  <div class="food"
+       [ngStyle]="{'top':singleFood.y+'px','left':singleFood.x+'px'}"
+       *ngFor="let singleFood of (simulationVMS.food | async)">
+    &nbsp;
+  </div>
+
+</div>

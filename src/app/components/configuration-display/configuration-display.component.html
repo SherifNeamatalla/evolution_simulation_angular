@@ -1,0 +1,31 @@
+<div fxLayout='column' style="height: 100%;width: 100%;">
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h3>Configuration</h3>
+  </div>
+
+  <mat-form-field class="input_field">
+    <mat-label style="color: black">Initial creatures count</mat-label>
+    <input matInput [(ngModel)]="simulationVMS.configuration.creaturesCount" readonly>
+  </mat-form-field>
+
+  <mat-form-field class="input_field">
+    <mat-label style="color: black">Canvas height</mat-label>
+    <input matInput [(ngModel)]="simulationVMS.configuration.canvasHeight" readonly>
+  </mat-form-field>
+
+  <mat-form-field class="input_field">
+    <mat-label style="color: black">Canvas width</mat-label>
+    <input matInput [(ngModel)]="simulationVMS.configuration.canvasWidth" readonly>
+  </mat-form-field>
+
+  <mat-form-field class="input_field">
+    <mat-label style="color: black">Food per round</mat-label>
+    <input matInput [(ngModel)]="simulationVMS.configuration.foodPerRound" readonly>
+  </mat-form-field>
+
+  <mat-form-field class="input_field">
+    <mat-label style="color: black">fps</mat-label>
+    <input matInput [(ngModel)]="simulationVMS.configuration.fps" readonly>
+  </mat-form-field>
+</div>

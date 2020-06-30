@@ -1,0 +1,12 @@
+<div fxLayout='column' style="height: 100%;width: 100%;">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h3>Current State</h3>
+  </div>
+  <mat-form-field class="input_field">
+    <mat-label style="color: black">Creatures count</mat-label>
+    <input matInput [value]="(simulationVMS.creatures | async)?.length.toString()"
+           type="number"
+           readonly>
+  </mat-form-field>
+</div>
+
