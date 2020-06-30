@@ -1,0 +1,51 @@
+<div *ngIf="(simulationVMS.chosenCreature | async)" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h3>Chosen creature</h3>
+  </div>
+
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <h3>Position attributes</h3>
+    </div>
+    <div fxLayout="row">
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Current X-Moving direction</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.xMovingDirection.toString()" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Current Y-Moving direction</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.yMovingDirection.toString()" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Current x</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.position.y.toString()" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Current y</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.position.x.toString()" readonly>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <h3>Other attributes</h3>
+    </div>
+    <div fxLayout="row">
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Vision (pixels)</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.pixelsVision.toString()" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Speed (pixels/tick)</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.pixelsPerTick.toString()" readonly>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+</div>

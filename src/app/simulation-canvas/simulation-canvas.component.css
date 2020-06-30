@@ -10,6 +10,7 @@
   background-color: lightgrey;
   position: absolute;
   width: 20px;
+  height: 20px;
 }
 
 .food {
@@ -17,4 +18,11 @@
   background-color: yellow;
   position: absolute;
   width: 15px;
+  height: 15px;
+}
+
+.highlight_creature {
+  border-radius: 50%;
+  border: 1px solid red;
+  position: absolute;
 }

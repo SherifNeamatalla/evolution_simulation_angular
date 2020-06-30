@@ -5,6 +5,9 @@ import {ConfigurationDisplayModule} from '../configuration-display/configuration
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {SimulationStateDisplayModule} from '../simulation-state-display/simulation-state-display.module';
 import {SimulationCanvasModule} from '../../simulation-canvas/simulation-canvas.module';
+import {CreatureDetailDisplayModule} from '../../creature-detail-display/creature-detail-display.module';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import {SimulationCanvasModule} from '../../simulation-canvas/simulation-canvas.
     ConfigurationDisplayModule,
     FlexLayoutModule,
     SimulationStateDisplayModule,
-    SimulationCanvasModule
+    SimulationCanvasModule,
+    CreatureDetailDisplayModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class GameCanvasModule {

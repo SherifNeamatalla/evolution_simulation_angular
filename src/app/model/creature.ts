@@ -1,10 +1,10 @@
-import {MovingDirection} from './moving-direction';
+import {Position} from './position';
+import {XMovingDirection, YMovingDirection} from './moving-direction';
 
 export interface Creature {
-  x: number;
-  y: number;
-
+  position: Position;
   pixelsPerTick: number;
   pixelsVision: number;
-  movingDirection: MovingDirection;
+  yMovingDirection: YMovingDirection;
+  xMovingDirection: XMovingDirection;
 }

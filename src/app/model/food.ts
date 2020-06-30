@@ -1,4 +1,6 @@
+import {Position} from './position';
+
 export interface Food {
-  x: number;
-  y: number;
+  position: Position;
+  distance: number;
 }

@@ -10,10 +10,25 @@ import {Food} from '../model/food';
 export class SimulationControllerViewModelService {
 
   creatures = new BehaviorSubject<Creature[]>([]);
+  chosenCreature = new BehaviorSubject<Creature>(null);
   food = new BehaviorSubject<Food[]>([]);
+
+  isPaused = new BehaviorSubject<boolean>(false);
+
+  loopSubscriptionID: number;
 
   constructor(public configuration: SimulationConfiguration) {
     this.initializeSimulation();
+    this.initializeSubscriptions();
+  }
+
+  onCreatureSelected(creature: Creature): void {
+    this.chosenCreature.next(creature);
+
+  }
+
+  onPauseClicked(): void {
+    this.isPaused.next(!this.isPaused.value);
   }
 
   private initializeSimulation(): void {
@@ -23,7 +38,7 @@ export class SimulationControllerViewModelService {
   }
 
   private startLoop(): void {
-    setInterval(() => {
+    this.loopSubscriptionID = setInterval(() => {
       this.creatures.value.forEach(creature => TickController.liveTick(creature, this.food.value, this.configuration));
     }, this.configuration.creaturesCount);
   }
@@ -40,5 +55,20 @@ export class SimulationControllerViewModelService {
   private generateFood(): void {
     this.food.next(this.food.value.concat(ResourcesFactory.generateRoundFood(this.configuration)));
 
+  }
+
+  private initializeSubscriptions(): void {
+    this.isPaused.subscribe(next => {
+      if (next && this.loopSubscriptionID === undefined) {
+        this.startLoop();
+      } else {
+        this.stopLoop();
+      }
+    });
+  }
+
+  private stopLoop(): void {
+    clearInterval(this.loopSubscriptionID);
+    this.loopSubscriptionID = undefined;
   }
 }

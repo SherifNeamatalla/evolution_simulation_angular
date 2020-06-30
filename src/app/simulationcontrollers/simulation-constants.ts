@@ -8,4 +8,5 @@ export class SimulationConstants {
   static DEFAULT_MINIMUM_SPEED = 25;
   static DEFAULT_MINIMUM_VISION_RANGE = 25;
   static DEFAULT_MAXIMUM_VISION_RANGE = 100;
+  static CREATURE_SIZE_PX = 20;
 }
