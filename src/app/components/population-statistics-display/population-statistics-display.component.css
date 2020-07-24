@@ -1,0 +1,12 @@
+.divider_line {
+  border: black 1px solid;
+  margin: 5px;
+}
+
+.input_field {
+  margin: 5px;
+}
+
+.go_icon {
+  cursor: pointer;
+}

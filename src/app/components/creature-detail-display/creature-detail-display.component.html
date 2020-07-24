@@ -44,8 +44,44 @@
         <mat-label style="color: black">Speed (pixels/tick)</mat-label>
         <input matInput [value]="(simulationVMS.chosenCreature |async)?.pixelsPerTick.toString()" readonly>
       </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Energy decay (per tick)</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.energyDecayPerTick.toString()" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Accepted mating energy range (-/+)</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.acceptedMatingEnergy.toString()" readonly>
+      </mat-form-field>
     </div>
   </div>
 
 
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <h3>Current state</h3>
+    </div>
+    <div fxLayout="row">
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Current energy</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.energy.toString()" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Food count</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.foodCount.toString()" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Mating cool down</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.matingCoolDown.toString()" readonly>
+      </mat-form-field>
+
+      <mat-form-field class="input_field">
+        <mat-label style="color: black">Offspring count</mat-label>
+        <input matInput [value]="(simulationVMS.chosenCreature |async)?.childrenCount.toString()" readonly>
+      </mat-form-field>
+    </div>
+  </div>
 </div>

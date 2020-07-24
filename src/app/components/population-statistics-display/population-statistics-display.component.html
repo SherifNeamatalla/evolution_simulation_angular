@@ -1,0 +1,68 @@
+<div *ngIf="(simulationVMS.statistic | async)" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h3>Population statistics</h3>
+  </div>
+  <div fxLayout="row">
+
+    <ng-container *ngTemplateOutlet="single_statistic_display; context:{statistic:(simulationVMS.statistic |async)?.foodCountStatistic,
+  label:'Food count',attribute:'foodCount'}"></ng-container>
+    <mat-divider [vertical]="true" class="divider_line"></mat-divider>
+    <ng-container *ngTemplateOutlet="single_statistic_display; context:{statistic:(simulationVMS.statistic |async)?.speedStatistic,
+  label:'Speed',attribute:'pixelsPerTick'}"></ng-container>
+
+
+    <mat-divider [vertical]="true" class="divider_line"></mat-divider>
+    <ng-container *ngTemplateOutlet="single_statistic_display; context:{statistic:(simulationVMS.statistic |async)?.visionStatistic,
+  label:'Vision',attribute:'pixelsVision'}"></ng-container>
+    <mat-divider [vertical]="true" class="divider_line"></mat-divider>
+
+    <ng-container *ngTemplateOutlet="single_statistic_display; context:{statistic:(simulationVMS.statistic |async)?.energyDecayStatistic,
+  label:'Energy decay rate',attribute:'energyDecayPerTick'}"></ng-container>
+  </div>
+
+  <div fxLayout="row">
+    <ng-container *ngTemplateOutlet="single_statistic_display; context:{statistic:(simulationVMS.statistic |async)?.childrenCountStatistic,
+  label:'Offspring count',attribute:'childrenCount'}"></ng-container>
+  </div>
+</div>
+
+
+<ng-template #single_statistic_display
+             let-statistic="statistic" let-attribute="attribute" let-label="label">
+  <div fxLayout="column">
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <h3>{{label}}</h3>
+    </div>
+    <mat-form-field class="input_field">
+      <mat-label style="color: black">Current average</mat-label>
+      <input matInput [value]="statistic['average']" readonly>
+    </mat-form-field>
+
+    <mat-divider class='divider_line' [vertical]="true"></mat-divider>
+
+    <mat-form-field
+      [ngStyle]="{'background-color':statistic['max']===simulationVMS.chosenCreature.value?'yellow':'white'}"
+      class="input_field">
+      <mat-label style="color: black">Current max</mat-label>
+      <input matInput [value]="statistic['max'][attribute]"
+             readonly>
+      <mat-icon class='go_icon' matSuffix
+                (click)="simulationVMS.onCreatureSelected(statistic['max'])">launch
+      </mat-icon>
+    </mat-form-field>
+
+    <mat-divider class='divider_line' [vertical]="true"></mat-divider>
+
+    <mat-form-field
+      [ngStyle]="{'background-color':statistic['min']===simulationVMS.chosenCreature.value?'yellow':'white'}"
+      class="input_field">
+      <mat-label style="color: black">Current min</mat-label>
+      <input matInput [value]="statistic['min'][attribute]"
+             readonly>
+      <mat-icon class='go_icon' matSuffix
+                (click)="simulationVMS.onCreatureSelected(statistic['min'])">launch
+      </mat-icon>
+    </mat-form-field>
+  </div>
+</ng-template>

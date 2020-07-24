@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SimulationControllerViewModelService} from '../simulationcontrollers/simulation-controller-view-model.service';
+import {SimulationControllerViewModelService} from '../../simulationcontrollers/simulation-controller-view-model.service';
 
 @Component({
   selector: 'app-creature-detail-display',

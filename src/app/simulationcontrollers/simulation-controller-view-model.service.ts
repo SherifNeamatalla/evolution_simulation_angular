@@ -3,19 +3,24 @@ import {SimulationConfiguration} from '../model/simulation-configuration';
 import {BehaviorSubject} from 'rxjs';
 import {Creature} from '../model/creature';
 import {ResourcesFactory} from './resources-factory';
-import {TickController} from './tick-controller';
+import {TickController} from './behaviorcontrollers/tick-controller';
 import {Food} from '../model/food';
+import {PopulationStatistic} from '../model/population-statistic';
+import {StatisticUpdater} from './statistic-updater';
 
 @Injectable({providedIn: 'root'})
 export class SimulationControllerViewModelService {
 
-  creatures = new BehaviorSubject<Creature[]>([]);
+  population = new BehaviorSubject<Creature[]>([]);
   chosenCreature = new BehaviorSubject<Creature>(null);
   food = new BehaviorSubject<Food[]>([]);
+  statistic = new BehaviorSubject<PopulationStatistic>(null);
 
   isPaused = new BehaviorSubject<boolean>(false);
 
   loopSubscriptionID: number;
+
+  currentTick = 0;
 
   constructor(public configuration: SimulationConfiguration) {
     this.initializeSimulation();
@@ -31,6 +36,11 @@ export class SimulationControllerViewModelService {
     this.isPaused.next(!this.isPaused.value);
   }
 
+  onRestartClicked(): void {
+    this.initializeSimulation();
+    this.initializeSubscriptions();
+  }
+
   private initializeSimulation(): void {
     this.createInitialPopulation();
     this.generateFood();
@@ -39,8 +49,19 @@ export class SimulationControllerViewModelService {
 
   private startLoop(): void {
     this.loopSubscriptionID = setInterval(() => {
-      this.creatures.value.forEach(creature => TickController.liveTick(creature, this.food.value, this.configuration));
-    }, this.configuration.creaturesCount);
+      this.population.value.forEach(creature => {
+        TickController.liveTick(creature, this.population.value, this.food.value, this.configuration);
+        if (creature.energy <= 0) {
+          this.population.value.splice(this.population.value.indexOf(creature), 1);
+        }
+        this.currentTick++;
+        if (this.currentTick >= 600 && this.food.value.length < this.configuration.maxFoodCount * this.population.value.length) {
+          this.currentTick = 0;
+          this.generateFood();
+          this.updateStatistic();
+        }
+      });
+    }, this.configuration.fps);
   }
 
   private createInitialPopulation(): void {
@@ -49,12 +70,11 @@ export class SimulationControllerViewModelService {
       const newCreature = ResourcesFactory.createCreature(this.configuration);
       initialCreatures.push(newCreature);
     }
-    this.creatures.next(initialCreatures);
+    this.population.next(initialCreatures);
   }
 
   private generateFood(): void {
-    this.food.next(this.food.value.concat(ResourcesFactory.generateRoundFood(this.configuration)));
-
+    this.food.next(this.food.value.concat(ResourcesFactory.generateRoundFood(this.configuration, this.population.value.length)));
   }
 
   private initializeSubscriptions(): void {
@@ -70,5 +90,10 @@ export class SimulationControllerViewModelService {
   private stopLoop(): void {
     clearInterval(this.loopSubscriptionID);
     this.loopSubscriptionID = undefined;
+  }
+
+  private updateStatistic(): void {
+    this.statistic.next(StatisticUpdater.updateStatistic(this.population.value));
+
   }
 }

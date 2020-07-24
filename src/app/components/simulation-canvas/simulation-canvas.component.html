@@ -1,0 +1,25 @@
+<div class="main_canvas">
+
+  <div
+    class="highlight_creature"
+    [ngStyle]="{'width':(simulationVMS.chosenCreature | async).pixelsVision+'px',
+    'height':(simulationVMS.chosenCreature | async).pixelsVision+'px',
+    'top':(simulationVMS.chosenCreature | async)?.position?.y-(simulationVMS.chosenCreature | async).pixelsVision/2+'px',
+    'left':(simulationVMS.chosenCreature | async)?.position?.x-(simulationVMS.chosenCreature | async).pixelsVision/2+'px'}"
+    *ngIf="(simulationVMS.chosenCreature | async)">
+    &nbsp;
+  </div>
+  <div class="creature"
+       (click)="simulationVMS.onCreatureSelected(creature)"
+       [ngStyle]="{'top':creature?.position?.y-10+'px','left':creature?.position?.x-10+'px'}"
+       [ngClass]="creature === (simulationVMS.chosenCreature | async)?'creature_black':
+creature?.energy >=75?'creature_normal':creature?.energy >= 25?'creature_orange':'creature_red'"
+       *ngFor="let creature of (simulationVMS.population | async)">
+  </div>
+
+  <div class="food"
+       [ngStyle]="{'top':singleFood?.position?.y-7.5+'px','left':singleFood?.position?.x-7.5+'px'}"
+       *ngFor="let singleFood of (simulationVMS.food | async)">
+  </div>
+
+</div>

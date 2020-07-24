@@ -4,7 +4,14 @@
   </div>
   <mat-form-field class="input_field">
     <mat-label style="color: black">Creatures count</mat-label>
-    <input matInput [value]="(simulationVMS.creatures | async)?.length.toString()"
+    <input matInput [value]="(simulationVMS.population | async)?.length.toString()"
+           type="number"
+           readonly>
+  </mat-form-field>
+
+  <mat-form-field class="input_field">
+    <mat-label style="color: black">Food count</mat-label>
+    <input matInput [value]="(simulationVMS.food | async)?.length.toString()"
            type="number"
            readonly>
   </mat-form-field>

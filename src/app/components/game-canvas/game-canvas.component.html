@@ -1,16 +1,27 @@
 <div fxLayout="column">
-<div fxLayout="row">
-  <button mat-icon-button (click)="simulationVMS.onPauseClicked()">
-    <mat-icon>pause</mat-icon>
-  </button>
-</div>
-<div style="display: flex;flex-direction: row">
-  <div fxLayout="column">
-    <app-configuration-display></app-configuration-display>
-    <app-simulation-state-display></app-simulation-state-display>
+  <div fxLayout="row">
+    <button mat-icon-button (click)="simulationVMS.onPauseClicked()">
+      <mat-icon>pause</mat-icon>
+    </button>
+
+    <button mat-icon-button (click)="simulationVMS.onRestartClicked()">
+      <mat-icon>cached</mat-icon>
+    </button>
   </div>
-  <app-simulation-canvas></app-simulation-canvas>
-  <app-creature-detail-display></app-creature-detail-display>
-</div>
+  <div style="display: flex;flex-direction: column">
+    <app-simulation-canvas></app-simulation-canvas>
+    <div fxLayout="row">
+      <div fxLayout="column">
+        <app-population-statistics-display fxFlex="50%"></app-population-statistics-display>
+        <app-creature-detail-display fxFlex="50%"></app-creature-detail-display>
+      </div>
+      <div fxLayout="column">
+      <app-configuration-display></app-configuration-display>
+      <app-simulation-state-display></app-simulation-state-display>
+      </div>
+
+
+    </div>
+  </div>
 
 </div>
